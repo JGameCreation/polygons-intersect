@@ -15,7 +15,7 @@ describe('intersection', function () {
             poly2 = [{x: 30, y: 70}, {x: 90, y: 90}, {x: 110, y: 50}, {x: 70, y: 10}];
             expectedPoly = [{x: 30, y: 70}, {x: 60, y: 80}, {x: 80, y: 60}, {x: 50, y: 40}];
             polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.deep.have.members(expectedPoly);
+            expect(polyRes).to.be.true();
         });
         it('should return array with one new polygon', () => {
             poly1 = [{x: 40, y: 100}, {x: 80, y: 60}, {x: 30, y: 30}, {x: 110, y: 5},
@@ -24,7 +24,7 @@ describe('intersection', function () {
             expectedPoly = [{x: 30, y: 30}, {x: 18.75, y: 30}, {x: 20, y: 20}, {x: 26.67, y: 10},
                 {x: 40, y: 10}, {x: 40, y: 26.88}];
             polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.deep.have.members(expectedPoly);
+            expect(polyRes).to.be.true();
         });
 
         it('should return array with two new polygons', () => {
@@ -35,7 +35,7 @@ describe('intersection', function () {
                 {x: 63.68, y: 19.47}], [{x: 70, y: 10}, {x: 75.71, y: 15.71},
                 {x: 63.69, y: 19.47}]];
             polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.deep.have.members(expectedPoly);
+            expect(polyRes).to.be.true();
         });
     });
 
@@ -44,16 +44,14 @@ describe('intersection', function () {
             poly1 = [{x: 30, y: 10}, {x: 30, y: 20}, {x: 20, y: 15}];
             poly2 = [{x: 30, y: 10}, {x: 30, y: 20}, {x: 40, y: 20}, {x: 40, y: 10}];
             polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.be.instanceof(Array);
-            expect(polyRes).to.have.lengthOf(0);
+            expect(polyRes).to.be.false();
         });
 
         it('should return empty array (touch in two tops and one point on the edge)', () => {
             poly1 = [{x: 10, y: 20}, {x: 30, y: 10}, {x: 30, y: 20}, {x: 30, y: 30}];
             poly2 = [{x: 30, y: 10}, {x: 30, y: 30}, {x: 50, y: 20}];
             polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.be.instanceof(Array);
-            expect(polyRes).to.have.lengthOf(0);
+            expect(polyRes).to.be.false();
         });
     });
 
@@ -61,8 +59,7 @@ describe('intersection', function () {
         it('should return array with one new polygon', () => {
             poly1 = [{x: 10, y: 10}, {x: 10, y: 40}, {x: 40, y: 40}, {x: 40, y: 10}];
             poly2 = [{x: 20, y: 20}, {x: 20, y: 30}, {x: 30, y: 30}, {x: 30, y: 20}];
-            polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.deep.have.members(poly2);
+            expect(polyRes).to.be.true();
         });
     });
 
@@ -71,8 +68,7 @@ describe('intersection', function () {
             poly1 = [{x: 10, y: 10}, {x: 10, y: 20}, {x: 20, y: 20}, {x: 20, y: 10}];
             poly2 = [{x: 30, y: 10}, {x: 30, y: 20}, {x: 40, y: 20}, {x: 40, y: 10}];
             polyRes = intersection(poly1, poly2);
-            expect(polyRes).to.be.instanceof(Array);
-            expect(polyRes).to.have.lengthOf(0);
+            expect(polyRes).to.be.false();
         });
     });
 });

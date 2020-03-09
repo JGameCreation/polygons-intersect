@@ -45,7 +45,31 @@ function intersection(poly1, poly2) {
         findNextIntersectPoint(edge);
     }
 
-    return intersectPolies.getResult();
+    result = intersectPolies.getResult();
+    if (result.length === 0) {
+        for (let poly of [poly1, poly2]) {
+            let secondPoly = (poly === poly1) ? poly2 : poly1;
+            if (poly.isPointsOnEdgesAndOut()) {
+                let edges = poly.getEdges();
+                for (let i = 0; i < edges.length; i++) {
+                    let j = (i + 1) % edges.length;
+                    let v1 = edges[i].getStartPoint().sub(edges[i].getEndPoint());
+                    let v2 = edges[j].getEndPoint().sub(edges[j].getStartPoint());
+                    let k = v1.x * v2.y - v1.y * v2.x;
+                    if (secondPoly.isPointInPoly(v1.add(v2).normalize().scalarMultiply(k > 0 ? -0.1 : 0.1)
+                        .add(edges[j].getStartPoint()))) {
+                        return true;
+                    }
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    } else {
+        return true;
+    }
+    
 
 
     function findNextIntersectPoint(edge) {
